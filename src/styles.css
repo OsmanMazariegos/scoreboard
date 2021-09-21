@@ -21,6 +21,10 @@ mat-grid-tile {
     background-color: #ffffff !important;
 }
 
+#table1 tr.mat-row {
+    height: 32px;
+}
+
 body {
     /* Location of the image */
     background-image: url("./assets/images/93d435af7e2deeb62dcb2000399f75a9.jpg");

@@ -338,6 +338,7 @@ svg#clouds {
 
 .example-card {
     max-width: 150px;
+    text-align: center;
 }
 
 .comp-e {
@@ -345,9 +346,30 @@ svg#clouds {
     font-size: 11px;
 }
 
+.comp-f {
+    color: #e6ebf1;
+}
+
+.comp-g {
+    color: #333;
+}
+
+.comp-h {
+    background-color: #e6ebf1;
+    opacity: 0.7;
+}
+
+.comp-j {
+    font-size: 12px;
+}
+
 .image-center {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 50%;
+}
+
+.example-item {
+    text-align: center;
 }

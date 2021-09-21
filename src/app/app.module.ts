@@ -16,12 +16,14 @@ import {MatCardModule} from '@angular/material/card';
 import {MatSidenavModule} from '@angular/material/sidenav';
 
 import {MatTableModule} from '@angular/material/table';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogGoalComponent } from './dialog-goal/dialog-goal.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DialogGoalComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +38,7 @@ import {MatTableModule} from '@angular/material/table';
     MatCardModule,
     MatSidenavModule,
     MatTableModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
