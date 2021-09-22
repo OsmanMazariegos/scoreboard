@@ -159,8 +159,19 @@ export class AppComponent {
   playAudio() {
     let audio = new Audio();
     audio.src = "../../../assets/audio/arbitro-futbol.mp3";
+    audio.crossOrigin = 'anonymous';
     audio.load();
-    audio.play();
+    const promise = audio.play();
+    if (promise !== undefined) { // On older browsers play() does not return anything, so the value would be undefined.
+      promise
+        .then(() => {
+          console.log("Audio is playing"); // Audio is playing.
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+
   }
 
 
