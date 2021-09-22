@@ -18,17 +18,28 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTableModule} from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogGoalComponent } from './dialog-goal/dialog-goal.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { DialogWinnerComponent } from './dialog-winner/dialog-winner.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    DialogGoalComponent
+    DialogGoalComponent,
+    DialogWinnerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatSliderModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSlideToggleModule,
+    MatSelectModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
