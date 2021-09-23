@@ -25,7 +25,6 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { DialogWinnerComponent } from './dialog-winner/dialog-winner.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,

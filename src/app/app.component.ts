@@ -4,6 +4,8 @@ import { Component, Input, OnInit, OnDestroy, AfterViewInit, ElementRef, ViewChi
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ThemePalette } from '@angular/material/core';
 import { Subscription, interval } from 'rxjs';
+import { UUID } from 'angular2-uuid';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export interface SoccerElement {
   logo: string;
@@ -55,10 +57,6 @@ const ELEMENT_DATA: PeriodicElement[] = [
 var colors = ["red", "blue", "green", "yellow"];
 var randomColor = colors[Math.floor(Math.random() * colors.length)];
 
-var marcador1 = 0;
-var marcador2 = 0;
-
-let d1;
 
 @Component({
   selector: 'app-root',
@@ -68,12 +66,17 @@ let d1;
 
 export class AppComponent {
 
-  constructor(private matDialog: MatDialog) { }
+  constructor(private matDialog: MatDialog, private route: ActivatedRoute,
+    private router: Router) { }
 
   @ViewChild('timer') myTimer: ElementRef;
   @ViewChild('input1') myInput1: ElementRef;
 
-  ngOnInit(): void {
+  uuidValue:string;
+
+  generateUUID(){
+    this.uuidValue=UUID.UUID();
+    return this.uuidValue;
   }
 
   start: boolean = false;
@@ -81,6 +84,9 @@ export class AppComponent {
   stop: boolean = true;
 
   public mData1: number = 1;
+
+  public mMarker1: number = 0;
+  public mMarker2: number = 0;
 
   color: ThemePalette = 'accent';
   checked = false;
@@ -97,6 +103,32 @@ export class AppComponent {
   secondsRemaining: any;
   intervalHandle: any;
 
+  ngOnInit(): void {
+    localStorage.setItem('marker', this.mMarker1+"");
+    this.getTutorial(this.route.snapshot.paramMap.get('id'));
+  }
+
+  getTutorial(id): void {
+    console.log(id);
+  }
+
+
+  addMarker1(){
+    this.mMarker1++;
+  }
+  
+  subtractMarker1(){
+    this.mMarker1++;
+  }
+
+  addMarker2(){
+    this.mMarker1++;
+  }
+
+  subtractMarker2(){
+    this.mMarker1++;
+  }
+
   openDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = "some data";
@@ -105,7 +137,7 @@ export class AppComponent {
 
   openWinner() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = "some data";
+    dialogConfig.data = {marker1: this.mMarker1};
     this.matDialog.open(DialogWinnerComponent, dialogConfig);
   }
 
@@ -116,6 +148,7 @@ export class AppComponent {
 
     clearInterval(this.intervalHandle);
 
+    console.log(this.generateUUID());
 
     var minutes = this.myInput1.nativeElement.value;
 
@@ -127,6 +160,8 @@ export class AppComponent {
     this.secondsRemaining = minutes * 60;
 
     this.intervalHandle = setInterval(() => {
+
+      console.log("randomColor: "+randomColor);
 
       let min = Math.floor(this.secondsRemaining / 60);
       let sec = this.secondsRemaining - (min * 60);

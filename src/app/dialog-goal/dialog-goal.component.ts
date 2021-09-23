@@ -9,6 +9,7 @@ import { FormControl } from '@angular/forms';
 })
 export class DialogGoalComponent implements OnInit {
 
+  marker:number = 0;
   disableSelect = new FormControl(false);
 
   constructor(public dialogRef: MatDialogRef<DialogGoalComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -20,8 +21,24 @@ export class DialogGoalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+   ///alert(data.marker1);
   }
 
+  add(){
+
+    this.marker = parseInt(localStorage.getItem('marker'));
+    this.marker++;
+    localStorage.setItem('marker', this.marker+"");
+  }
+
+  minus(){
+    this.marker = parseInt(localStorage.getItem('marker'));
+
+    if(this.marker > 0){
+      this.marker--;
+    }
+    localStorage.setItem('marker', this.marker+"");
+  }
 
 
   close() {
