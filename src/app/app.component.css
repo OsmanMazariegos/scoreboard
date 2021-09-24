@@ -1,16 +1,3 @@
-.example-spacer {
-    flex: 1 1 auto;
-}
-
-
-/* #sect1 {
-    height: 650 px;
-    color: #fff;
-    background-image: url("../assets/images/93d435af7e2deeb62dcb2000399f75a9.jpg");
-    background-size: 100%;
-    background-size: cover;
-} */
-
 :host {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 14px;
@@ -304,92 +291,14 @@ svg#clouds {
     }
 }
 
-.comp-a {
+.comp-a-2 {
     background-color: transparent;
 }
 
-.comp-b {
-    font-size: 32px;
-    color: #eee;
-    font-weight: bold;
-}
-
-.comp-c {
-    background-color: transparent;
-    font-size: 28px;
-    color: #eee;
-    font-weight: bold;
-    border: #e6ebf1 solid 1px;
-}
-
-.comp-d {
-    border: #e6ebf1 solid 1px;
-}
-
-.example-button-row {
-    display: table-cell;
-    width: 100px;
-}
-
-.sports_soccer {
-    color: #fff;
-    font-size: 32px;
-}
-
-.example-card {
-    max-width: 150px;
-    text-align: center;
-}
-
-.comp-e {
-    color: #fff;
-    font-size: 11px;
-}
-
-.comp-f {
+.comp-f-2 {
     color: #e6ebf1;
 }
 
-.comp-g {
-    color: #333;
-}
-
-.comp-h {
-    background-color: #e6ebf1;
-    opacity: 0.7;
-}
-
-.comp-j {
-    font-size: 12px;
-}
-
-.image-center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-}
-
-.example-item {
-    text-align: center;
-}
-
-.example-container-1 {
-    padding: 10px;
-}
-
-.example-button-container {
-    padding: 10px;
-}
-
-.w-25 {
-    width: 25%;
-}
-
-.w-15 {
-    width: 15%;
-}
-
-.w-55 {
-    width: 45%;
+.example-spacer-2 {
+    flex: 1 1 auto;
 }

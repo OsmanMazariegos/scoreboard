@@ -1,11 +1,13 @@
 import { AppComponent } from './app.component';
+import { LeagueComponent } from './components/league/league.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { InitComponent } from './components/init/init.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/liga', pathMatch: 'full' },
-  { path: 'liga', component: AppComponent },
-  { path: 'liga/:id', component: AppComponent },
+  { path: '', redirectTo: '/league', pathMatch: 'full' },
+  { path: 'league', component: InitComponent },
+  { path: 'league/:id', component: LeagueComponent },
 
 ];
 

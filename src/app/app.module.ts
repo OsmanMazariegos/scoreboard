@@ -23,15 +23,24 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { DialogWinnerComponent } from './dialog-winner/dialog-winner.component';
+import { DialogInitComponent } from './dialog-init/dialog-init.component';
+import { LeagueComponent } from './components/league/league.component';
+import { InitComponent } from './components/init/init.component';
+
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     DialogGoalComponent,
-    DialogWinnerComponent
+    DialogWinnerComponent,
+    DialogInitComponent,
+    LeagueComponent,
+    InitComponent
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     MatSliderModule,
