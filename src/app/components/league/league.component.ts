@@ -1,13 +1,21 @@
+import { StorageService } from './../../service/storage.service';
 import { DialogGoalComponent } from './../../dialog-goal/dialog-goal.component';
 import { DialogWinnerComponent } from './../../dialog-winner/dialog-winner.component';
 import { DialogInitComponent } from './../../dialog-init/dialog-init.component';
-import { Component, Input, OnInit, OnDestroy, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, AfterViewInit, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ThemePalette } from '@angular/material/core';
 import { Subscription, interval } from 'rxjs';
 import { UUID } from 'angular2-uuid';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from "@angular/platform-browser";
+import { Championship } from 'src/app/models/championship.model';
+import { HeaderTitleService } from 'src/app/service/header-title.service';
+import { DialogAddClubComponent } from 'src/app/club/dialog-add-club/dialog-add-club.component';
+import { Club } from 'src/app/models/club.model';
+import { MatTableDataSource } from '@angular/material/table';
 
+const StorageKey = 'data';
 
 export interface SoccerElement {
   logo: string;
@@ -26,6 +34,7 @@ export interface SoccerElement1 {
 }
 
 export interface PeriodicElement {
+  increment: number,
   id: number;
   shield: string;
   name: string;
@@ -46,16 +55,9 @@ const ELEMENT_DATA2: SoccerElement1[] = [
 const ELEMENT_DATA1: SoccerElement[] = [
   { logo: 'O', team: 'Hydrogen', points: 1 },
   { logo: 'P', team: 'Helium', points: 0 },
-
 ];
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { id: 1, shield: '0', name: 'FC BARCELONA', pg: 10, g: 8, pts: 15 },
-  { id: 2, shield: 'A', name: 'REAL MADRID', pg: 10, g: 3, pts: 6 },
-  { id: 3, shield: 'C', name: 'CHELSEA', pg: 10, g: 2, pts: 5 },
-  { id: 4, shield: 'D', name: 'VILLAREAL', pg: 10, g: 0, pts: 0 }
-];
-
+var ELEMENT_DATA: PeriodicElement[] = [];
 var colors = ["red", "blue", "green", "yellow"];
 var randomColor = colors[Math.floor(Math.random() * colors.length)];
 
@@ -66,42 +68,72 @@ var randomColor = colors[Math.floor(Math.random() * colors.length)];
 })
 export class LeagueComponent {
 
-  constructor(private matDialog: MatDialog, private route: ActivatedRoute,
-    private router: Router) { }
-
   @ViewChild('timer') myTimer: ElementRef;
   @ViewChild('input1') myInput1: ElementRef;
 
-  uuidValue: string;
+  public mData1: number = 1;
+  public mMarker1: number = 0;
+  public mMarker2: number = 0;
 
+  uuidValue: string;
   start: boolean = false;
   pause: boolean = true;
   stop: boolean = true;
-
   tab1: boolean = false;
   tab2: boolean = false;
   tab3: boolean = false;
   tab4: boolean = false;
 
-  public mData1: number = 1;
-
-  public mMarker1: number = 0;
-  public mMarker2: number = 0;
-
   color: ThemePalette = 'accent';
   checked = false;
   disabled = false;
-
-  title = 'Tour of Heroes';
   displayedColumns: string[] = ['id', 'shield', 'name', 'pg', 'g', 'pts'];
   displayedColumns1: string[] = ['logo', 'team', 'points'];
   displayedColumns2: string[] = ['logo1', 'team1', 'points1', 'vs', 'logo2', 'team2', 'points2'];
-  dataSource = ELEMENT_DATA;
   dataSource1 = ELEMENT_DATA1;
   dataSource2 = ELEMENT_DATA2;
   id: any;
   secondsRemaining: any;
   intervalHandle: any;
+
+  public ChampionshipList: Championship[] = [];
+  dataSourceTable: MatTableDataSource<PeriodicElement>;
+
+  constructor(private matDialog: MatDialog, private route: ActivatedRoute,
+    private router: Router, private titleService: Title,
+    private headerTitleService: HeaderTitleService,
+    private storageService: StorageService, private changeDetectorRefs: ChangeDetectorRef) {
+
+    this.ChampionshipList = storageService.getData(StorageKey)
+
+    var id = this.route.snapshot.paramMap.get('id');
+
+    var index = this.ChampionshipList.findIndex(function (obj) {
+      return obj.id === id;
+    });
+
+    this.ChampionshipList[index].clubs.forEach((element, index) => {
+      ELEMENT_DATA.push(this.createNew(element, index + 1));
+    });
+
+    this.dataSourceTable = new MatTableDataSource(ELEMENT_DATA);
+  }
+
+  ngOnInit(): void {
+
+  }
+
+  ngAfterViewInit(): void {
+    //  localStorage.setItem('marker', this.mMarker1 + "");
+
+    var id = this.route.snapshot.paramMap.get('id');
+    var result = this.ChampionshipList.find(obj => {
+      return obj.id === id;
+    });
+
+    //    this.titleService.setTitle(result.description)
+  }
+
 
   generateUUID() {
     this.uuidValue = UUID.UUID();
@@ -116,12 +148,26 @@ export class LeagueComponent {
     }
   }
 
-  ngAfterViewInit(): void {
-    localStorage.setItem('marker', this.mMarker1 + "");
-    // this.getTutorial(this.route.snapshot.paramMap.get('id'));
-   
-    console.log(this.route.snapshot.paramMap.get('id'))
+  getFromLocalStorage() {
+    const reference = localStorage.getItem('data');
+    if (reference) {
+      this.ChampionshipList = JSON.parse(reference);
+    }
+  }
 
+  public createList = (id) => {
+  }
+
+  createNew(item: Club, index): PeriodicElement {
+    return {
+      increment: index,
+      id: item.id,
+      shield: item.shield,
+      name: item.name,
+      pg: 0,
+      g: 0,
+      pts: 0,
+    };
   }
 
   ngAddLeague(): void {
@@ -131,7 +177,6 @@ export class LeagueComponent {
   getTutorial(id): void {
     console.log(id);
   }
-
 
   addMarker1() {
     this.mMarker1++;
@@ -149,6 +194,33 @@ export class LeagueComponent {
     this.mMarker1++;
   }
 
+  openDialogAddClub(action, obj) {
+    console.log(action)
+    obj.action = action;
+    obj.id = this.route.snapshot.paramMap.get('id');
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = obj;
+    this.matDialog.open(DialogAddClubComponent, dialogConfig).afterClosed().subscribe(result => {
+      if (result.event == 'Add') {
+        
+        var id = this.route.snapshot.paramMap.get('id');
+        var index = this.ChampionshipList.findIndex(function (obj) {
+          return obj.id === id;
+        });
+        this.ChampionshipList[index].clubs.push(result.data);
+      
+        var size = this.ChampionshipList[index].clubs.length;
+
+        console.log("size:" +size)
+
+        ELEMENT_DATA.push(this.createNew(result.data, size));
+        console.log(ELEMENT_DATA);
+        this.dataSourceTable = new MatTableDataSource(ELEMENT_DATA);
+        this.changeDetectorRefs.detectChanges();
+      }
+    });;
+  }
+
   openDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = "some data";
@@ -164,10 +236,8 @@ export class LeagueComponent {
   openDialogInit() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = { marker1: this.mMarker1 };
-    this.matDialog.open(DialogInitComponent,dialogConfig);
+    this.matDialog.open(DialogInitComponent, dialogConfig);
   }
-
-
 
   startCountdown() {
     this.start = !this.start;

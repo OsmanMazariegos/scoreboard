@@ -1,8 +1,9 @@
-import { FootballTeam } from './football-team.model';
+
+import { Club } from "./club.model";
 
 export class FootballGames {
     id: string;
-    teamBlue: FootballTeam[];
-    teamRed: FootballTeam[];
+    teamBlue: Club[];
+    teamRed: Club[];
 
 }

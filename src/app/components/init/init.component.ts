@@ -7,8 +7,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Championship } from 'src/app/models/championship.model';
 
-
-
 @Component({
   selector: 'app-init',
   templateUrl: './init.component.html',
@@ -19,13 +17,11 @@ export class InitComponent implements OnInit {
   constructor(private router: Router) { }
 
   @ViewChild('leagueName') leagueName: ElementRef;
-  
+
   uuidValue: string;
-  //leagues;
+  leagues = [];
 
- leagues = [];
-
-public ChampionshipList : Championship[] = [];
+  public ChampionshipList: Championship[] = [];
 
   public ownerForm: FormGroup;
 
@@ -33,48 +29,34 @@ public ChampionshipList : Championship[] = [];
     this.getFromLocalStorage();
     this.ownerForm = new FormGroup({
       leagueName: new FormControl('', [Validators.required]),
-      
     });
 
   }
 
   ngAfterViewInit() {
-    this.leagueName.nativeElement.focus();
+    //this.leagueName.nativeElement.focus();
   }
 
-  // function helps to get everything from local storage
-getFromLocalStorage() {
-  const reference = localStorage.getItem('data');
-  // if reference exists
-  if (reference) {
-    // converts back to array and store it in todos array
-    this.ChampionshipList = JSON.parse(reference);
-
+  getFromLocalStorage() {
+    const reference = localStorage.getItem('data');
+    if (reference) {
+      this.ChampionshipList = JSON.parse(reference);
+    }
   }
-}
 
-  public hasError = (controlName: string, errorName: string) =>{
+  public hasError = (controlName: string, errorName: string) => {
     return this.ownerForm.controls[controlName].hasError(errorName);
   }
 
-  public createOwner = (ownerFormValue) => {
+  public createOwner = () => {
     if (this.ownerForm.valid) {
-     
       let uid_ = this.generateUUID();
-      const league = {
-        id:  uid_,
-        name: this.leagueName.nativeElement.value
-      };
-
       var champion = new Championship()
-      champion.id =  uid_,
+      champion.id = uid_,
       champion.description = this.leagueName.nativeElement.value
-
       this.ChampionshipList.push(champion);
       localStorage.setItem("data", JSON.stringify(this.ChampionshipList));
-
-      this.router.navigate(['/league/'+uid_]);
-
+      this.router.navigate(['/league/' + uid_]);
     }
   }
 
@@ -83,9 +65,5 @@ getFromLocalStorage() {
     return this.uuidValue;
   }
 
-  // ngAddLeague(): void {
-  //   console.log(this.leagueName.nativeElement.value);
-  //   console.log(this.generateUUID());
-  // }
 
 }

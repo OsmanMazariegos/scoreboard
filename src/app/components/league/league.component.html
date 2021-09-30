@@ -170,26 +170,29 @@
 
         <mat-drawer-container class="example-container">
             <div class="example-button-container">
-                <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+                <button mat-mini-fab color="primary" (click)="openDialogAddClub('Add', {})" aria-label="Example icon button with a menu icon">
                     <mat-icon>add</mat-icon>
                 </button>
             </div>
 
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" width="100%">
+            <table mat-table [dataSource]="dataSourceTable" class="mat-elevation-z8" width="100%">
 
                 <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef [ngClass]="'w-15'"> CLUB </th>
-                    <td mat-cell *matCellDef="let element" [ngClass]="'w-15'"> {{element.id}} </td>
+                    <th mat-header-cell *matHeaderCellDef [ngClass]="'w-15  example-item'"> CLUB </th>
+                    <td mat-cell *matCellDef="let element" [ngClass]="'w-15  example-item'"> {{element.increment}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="shield">
                     <th mat-header-cell *matHeaderCellDef [ngClass]="'w-15 example-item'"> </th>
-                    <td mat-cell *matCellDef="let element" [ngClass]="'w-15'"> {{element.shield}} </td>
+                    <td mat-cell *matCellDef="let element" [ngClass]="'w-15  example-item'">
+
+                        <img width="24" alt="Angular Logo" src="../../../assets/images/{{element.shield}}.png" />
+                    </td>
                 </ng-container>
 
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef [ngClass]="'w-25 example-item'"> </th>
-                    <td mat-cell *matCellDef="let element" [ngClass]="'w-25'"> {{element.name}} </td>
+                    <td mat-cell *matCellDef="let element" [ngClass]="'w-25 '"> {{element.name}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="pg">
@@ -240,6 +243,14 @@
                         </section>
                     </mat-card-content>
                 </mat-card>
+
+
+                <div class="example-button-container-1">
+                    <button mat-raised-button color="warn">FINISH LEAGUE
+                    </button>
+
+                </div>
+
             </form>
         </mat-drawer-container>
     </mat-tab>

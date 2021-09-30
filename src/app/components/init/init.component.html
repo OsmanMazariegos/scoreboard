@@ -1,10 +1,10 @@
 <mat-tab-group animationDuration="0ms" style="min-height: 600px">
     <mat-tab label="NEW LEAGUE" class="">
         <mat-drawer-container class="example-container-1">
-            <form [formGroup]="ownerForm" class="example-form" autocomplete="off" novalidate (ngSubmit)="createOwner(ownerForm.value)">
+            <form [formGroup]="ownerForm" class="example-form" autocomplete="off" novalidate (ngSubmit)="createOwner()">
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Name</mat-label>
-                    <input matInput type="text" #leagueName formControlName="leagueName" value="" autocomplete="off">
+                    <input matInput type="text" #leagueName formControlName="leagueName" value="" autofocus autocomplete="off">
                     <mat-error *ngIf="hasError('leagueName', 'required')">Name is required</mat-error>
                 </mat-form-field>
                 <mat-dialog-actions class="example-item-1">

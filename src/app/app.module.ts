@@ -28,6 +28,7 @@ import { LeagueComponent } from './components/league/league.component';
 import { InitComponent } from './components/init/init.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { DialogAddClubComponent } from './club/dialog-add-club/dialog-add-club.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     DialogWinnerComponent,
     DialogInitComponent,
     LeagueComponent,
-    InitComponent
+    InitComponent,
+    DialogAddClubComponent
   ],
   imports: [
     ReactiveFormsModule,
